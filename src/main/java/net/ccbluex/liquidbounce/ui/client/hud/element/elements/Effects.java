@@ -1,13 +1,13 @@
-package net.ccbluex.liquidbounce.features.module.modules.render.hud.element.elements;
+package net.ccbluex.liquidbounce.ui.client.hud.element.elements;
 
-import net.ccbluex.liquidbounce.features.module.modules.render.hud.GuiHudDesigner;
-import net.ccbluex.liquidbounce.features.module.modules.render.hud.element.ElementInfo;
+import net.ccbluex.liquidbounce.ui.client.hud.GuiHudDesigner;
+import net.ccbluex.liquidbounce.ui.client.hud.element.ElementInfo;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
 import net.ccbluex.liquidbounce.ui.font.CFontRenderer;
 import net.ccbluex.liquidbounce.ui.font.Fonts;
-import net.ccbluex.liquidbounce.features.module.modules.render.hud.element.Element;
+import net.ccbluex.liquidbounce.ui.client.hud.element.Element;
 import net.ccbluex.liquidbounce.utils.render.RenderUtils;
 import net.ccbluex.liquidbounce.value.BoolValue;
 

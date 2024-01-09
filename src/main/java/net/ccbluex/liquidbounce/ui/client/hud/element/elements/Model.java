@@ -1,8 +1,8 @@
-package net.ccbluex.liquidbounce.features.module.modules.render.hud.element.elements;
+package net.ccbluex.liquidbounce.ui.client.hud.element.elements;
 
-import net.ccbluex.liquidbounce.features.module.modules.render.hud.GuiHudDesigner;
-import net.ccbluex.liquidbounce.features.module.modules.render.hud.element.Element;
-import net.ccbluex.liquidbounce.features.module.modules.render.hud.element.ElementInfo;
+import net.ccbluex.liquidbounce.ui.client.hud.GuiHudDesigner;
+import net.ccbluex.liquidbounce.ui.client.hud.element.Element;
+import net.ccbluex.liquidbounce.ui.client.hud.element.ElementInfo;
 import net.minecraft.client.entity.EntityPlayerSP;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.OpenGlHelper;

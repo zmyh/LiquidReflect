@@ -1,11 +1,11 @@
-package net.ccbluex.liquidbounce.features.module.modules.render.hud.element.elements;
+package net.ccbluex.liquidbounce.ui.client.hud.element.elements;
 
 import net.ccbluex.liquidbounce.LiquidBounce;
-import net.ccbluex.liquidbounce.features.module.modules.render.hud.GuiHudDesigner;
-import net.ccbluex.liquidbounce.features.module.modules.render.hud.element.Element;
-import net.ccbluex.liquidbounce.features.module.modules.render.hud.element.ElementInfo;
-import net.ccbluex.liquidbounce.features.module.modules.render.hud.element.elements.notifications.FadeState;
-import net.ccbluex.liquidbounce.features.module.modules.render.hud.element.elements.notifications.Notification;
+import net.ccbluex.liquidbounce.ui.client.hud.GuiHudDesigner;
+import net.ccbluex.liquidbounce.ui.client.hud.element.Element;
+import net.ccbluex.liquidbounce.ui.client.hud.element.ElementInfo;
+import net.ccbluex.liquidbounce.ui.client.hud.element.elements.notifications.FadeState;
+import net.ccbluex.liquidbounce.ui.client.hud.element.elements.notifications.Notification;
 import net.ccbluex.liquidbounce.utils.render.RenderUtils;
 
 /**

@@ -1,4 +1,4 @@
-package net.ccbluex.liquidbounce.features.module.modules.render.hud.element;
+package net.ccbluex.liquidbounce.ui.client.hud.element;
 
 import net.minecraft.client.gui.ScaledResolution;
 import net.ccbluex.liquidbounce.utils.MinecraftInstance;

@@ -1,11 +1,11 @@
-package net.ccbluex.liquidbounce.features.module.modules.render.hud.element.elements.notifications;
+package net.ccbluex.liquidbounce.ui.client.hud.element.elements.notifications;
 
 
 import net.minecraft.client.gui.Gui;
 import net.minecraft.client.renderer.GlStateManager;
 import net.ccbluex.liquidbounce.LiquidBounce;
 import net.ccbluex.liquidbounce.ui.font.Fonts;
-import net.ccbluex.liquidbounce.features.module.modules.render.hud.element.elements.Notifications;
+import net.ccbluex.liquidbounce.ui.client.hud.element.elements.Notifications;
 import net.ccbluex.liquidbounce.utils.render.RenderUtils;
 
 import java.awt.*;

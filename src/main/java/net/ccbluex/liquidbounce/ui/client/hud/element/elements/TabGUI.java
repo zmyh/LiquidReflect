@@ -1,12 +1,12 @@
-package net.ccbluex.liquidbounce.features.module.modules.render.hud.element.elements;
+package net.ccbluex.liquidbounce.ui.client.hud.element.elements;
 
 
 import net.ccbluex.liquidbounce.features.module.Module;
 import net.ccbluex.liquidbounce.features.module.ModuleCategory;
 import net.ccbluex.liquidbounce.features.module.ModuleManager;
-import net.ccbluex.liquidbounce.features.module.modules.render.hud.element.Element;
-import net.ccbluex.liquidbounce.features.module.modules.render.hud.element.ElementInfo;
-import net.ccbluex.liquidbounce.features.module.modules.render.hud.element.Facing;
+import net.ccbluex.liquidbounce.ui.client.hud.element.Element;
+import net.ccbluex.liquidbounce.ui.client.hud.element.ElementInfo;
+import net.ccbluex.liquidbounce.ui.client.hud.element.Facing;
 import net.minecraft.client.renderer.GlStateManager;
 import net.ccbluex.liquidbounce.ui.font.CFontRenderer;
 import net.ccbluex.liquidbounce.ui.font.Fonts;

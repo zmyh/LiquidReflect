@@ -1,8 +1,8 @@
-package net.ccbluex.liquidbounce.features.module.modules.render.hud;
+package net.ccbluex.liquidbounce.ui.client.hud;
 
 import net.minecraft.client.renderer.GlStateManager;
-import net.ccbluex.liquidbounce.features.module.modules.render.hud.element.Element;
-import net.ccbluex.liquidbounce.features.module.modules.render.hud.element.elements.notifications.Notification;
+import net.ccbluex.liquidbounce.ui.client.hud.element.Element;
+import net.ccbluex.liquidbounce.ui.client.hud.element.elements.notifications.Notification;
 import net.ccbluex.liquidbounce.utils.MinecraftInstance;
 
 import java.util.ArrayList;

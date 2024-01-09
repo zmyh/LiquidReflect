@@ -1,4 +1,4 @@
-package net.ccbluex.liquidbounce.features.module.modules.render.hud.element;
+package net.ccbluex.liquidbounce.ui.client.hud.element;
 
 import net.ccbluex.liquidbounce.value.*;
 import net.minecraft.client.gui.Gui;
@@ -7,7 +7,7 @@ import org.lwjgl.input.Mouse;
 import net.ccbluex.liquidbounce.LiquidBounce;
 import net.ccbluex.liquidbounce.ui.font.CFontRenderer;
 import net.ccbluex.liquidbounce.ui.font.Fonts;
-import net.ccbluex.liquidbounce.features.module.modules.render.hud.GuiHudDesigner;
+import net.ccbluex.liquidbounce.ui.client.hud.GuiHudDesigner;
 import net.ccbluex.liquidbounce.utils.render.RenderUtils;
 
 import java.awt.*;

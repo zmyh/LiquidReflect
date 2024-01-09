@@ -1,8 +1,8 @@
-package net.ccbluex.liquidbounce.features.module.modules.render.hud;
+package net.ccbluex.liquidbounce.ui.client.hud;
 
-import net.ccbluex.liquidbounce.features.module.modules.render.hud.element.elements.*;
+import net.ccbluex.liquidbounce.ui.client.hud.element.elements.*;
 import net.ccbluex.liquidbounce.ui.font.Fonts;
-import net.ccbluex.liquidbounce.features.module.modules.render.hud.element.Facing;
+import net.ccbluex.liquidbounce.ui.client.hud.element.Facing;
 
 import java.awt.*;
 

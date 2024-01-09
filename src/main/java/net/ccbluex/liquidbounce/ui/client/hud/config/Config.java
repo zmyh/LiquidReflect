@@ -1,11 +1,11 @@
-package net.ccbluex.liquidbounce.features.module.modules.render.hud.config;
+package net.ccbluex.liquidbounce.ui.client.hud.config;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonArray;
-import net.ccbluex.liquidbounce.features.module.modules.render.hud.HUD;
-import net.ccbluex.liquidbounce.features.module.modules.render.hud.element.Element;
-import net.ccbluex.liquidbounce.features.module.modules.render.hud.element.elements.*;
+import net.ccbluex.liquidbounce.ui.client.hud.HUD;
+import net.ccbluex.liquidbounce.ui.client.hud.element.Element;
+import net.ccbluex.liquidbounce.ui.client.hud.element.elements.*;
 
 /**
  * LiquidBounce Hacked Client

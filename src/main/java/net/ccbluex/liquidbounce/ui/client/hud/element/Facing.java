@@ -1,4 +1,4 @@
-package net.ccbluex.liquidbounce.features.module.modules.render.hud.element;
+package net.ccbluex.liquidbounce.ui.client.hud.element;
 
 /**
  * LiquidBounce Hacked Client

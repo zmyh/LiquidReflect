@@ -8,9 +8,9 @@ import net.ccbluex.liquidbounce.ui.font.Fonts;
 import net.ccbluex.liquidbounce.ui.client.clickgui.ClickGui;
 import net.ccbluex.liquidbounce.injection.TransformerManager;
 import net.ccbluex.liquidbounce.features.module.ModuleManager;
-import net.ccbluex.liquidbounce.features.module.modules.render.hud.DefaultHUD;
-import net.ccbluex.liquidbounce.features.module.modules.render.hud.HUD;
-import net.ccbluex.liquidbounce.features.module.modules.render.hud.element.elements.notifications.Notification;
+import net.ccbluex.liquidbounce.ui.client.hud.DefaultHUD;
+import net.ccbluex.liquidbounce.ui.client.hud.HUD;
+import net.ccbluex.liquidbounce.ui.client.hud.element.elements.notifications.Notification;
 import net.ccbluex.liquidbounce.utils.reflect.Mapping;
 import net.ccbluex.liquidbounce.utils.RotationUtils;
 
