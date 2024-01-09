@@ -1,6 +1,7 @@
 package net.ccbluex.liquidbounce.injection.transformers;
 
 import net.minecraft.client.gui.GuiIngame;
+import net.minecraft.client.gui.ScaledResolution;
 import org.objectweb.asm.Type;
 import org.objectweb.asm.tree.ClassNode;
 import org.objectweb.asm.tree.MethodInsnNode;
@@ -18,7 +19,7 @@ public class GuiIngameTransformer extends Transformer {
     @Override
     public void transform(ClassNode classNode) {
         // renderTooltip
-        MethodNode renderTooltip = method(classNode, "renderTooltip", "(Lnet/minecraft/client/gui/ScaledResolution;F)V");
+        MethodNode renderTooltip = method(classNode, "renderTooltip", "(L"+Type.getInternalName(ScaledResolution.class)+";F)V");
         renderTooltip.instructions.insertBefore(renderTooltip.instructions.getLast().getPrevious(), new MethodInsnNode(INVOKESTATIC, Type.getInternalName(this.getClass()), "render2D", "()V"));
         // end renderTooltip
     }

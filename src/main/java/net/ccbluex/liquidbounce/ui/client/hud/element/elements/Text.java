@@ -1,85 +1,63 @@
+
 package net.ccbluex.liquidbounce.ui.client.hud.element.elements;
 
+import net.ccbluex.liquidbounce.LiquidBounce;
 import net.ccbluex.liquidbounce.ui.client.hud.GuiHudDesigner;
 import net.ccbluex.liquidbounce.ui.client.hud.element.Element;
 import net.ccbluex.liquidbounce.ui.client.hud.element.ElementInfo;
-import net.minecraft.client.Minecraft;
-import net.minecraft.util.ChatAllowedCharacters;
-import org.lwjgl.input.Keyboard;
-import net.ccbluex.liquidbounce.LiquidBounce;
 import net.ccbluex.liquidbounce.ui.font.CFontRenderer;
-import net.ccbluex.liquidbounce.ui.font.Fonts;
-import net.ccbluex.liquidbounce.utils.render.ColorUtils;
-import net.ccbluex.liquidbounce.utils.render.RenderUtils;
-import net.ccbluex.liquidbounce.utils.misc.StringUtils;
 import net.ccbluex.liquidbounce.value.BoolValue;
 import net.ccbluex.liquidbounce.value.IntegerValue;
 import net.ccbluex.liquidbounce.value.TextValue;
-
-import java.awt.*;
-import java.text.SimpleDateFormat;
+import net.minecraft.entity.player.EntityPlayer;
+import net.ccbluex.liquidbounce.utils.EntityUtils;
+import net.ccbluex.liquidbounce.utils.misc.StringUtils;
+import net.minecraft.util.ChatAllowedCharacters;
+import net.minecraft.client.Minecraft;
+import net.ccbluex.liquidbounce.utils.render.ColorUtils;
+import net.ccbluex.liquidbounce.utils.render.RenderUtils;
+import net.ccbluex.liquidbounce.ui.font.Fonts;
+import java.awt.Color;
 
 @ElementInfo(name = "Text")
-public class Text extends Element {
+public class Text extends Element
+{
+    private final TextValue displayString;
+    private final IntegerValue redValue;
+    private final IntegerValue greenValue;
+    private final IntegerValue blueValue;
+    private final BoolValue rainbow;
+    private final BoolValue shadow;
+    private CFontRenderer fontRenderer;
+    private boolean editMode;
+    private float editTicks;
+    private long prevClick;
 
-    private final TextValue displayString = new TextValue("DisplayText", "LiquidBounce");
-    private final IntegerValue redValue = new IntegerValue("Red", 255, 0, 255);
-    private final IntegerValue greenValue = new IntegerValue("Green", 255, 0, 255);
-    private final IntegerValue blueValue = new IntegerValue("Blue", 255, 0, 255);
-    private final BoolValue rainbow = new BoolValue("Rainbow", false);
-    private final BoolValue shadow = new BoolValue("Shadow", true);
-    private CFontRenderer fontRenderer = Fonts.font40;
-
-    private boolean editMode = false;
-    private int editTicks = 0;
-    private long prevClick = 0L;
-
-    private String displayText = getDisplay();
-
-    private String getDisplay() {
-        String textContent;
-        if (displayString.get().isEmpty()) {
-            textContent = "Text Element";
-        } else {
-            textContent = displayString.get();
-        }
-
-        if (textContent.contains("%")) {
-            textContent = StringUtils.replace(textContent, "%username%", Minecraft.getMinecraft().getSession().getUsername());
-            textContent = StringUtils.replace(textContent, "%clientName%", LiquidBounce.CLIENT_NAME);
-            textContent = StringUtils.replace(textContent, "%clientVersion%", "b" + LiquidBounce.CLIENT_VERSION);
-            textContent = StringUtils.replace(textContent, "%clientCreator%", LiquidBounce.CLIENT_AUTHOR);
-            textContent = StringUtils.replace(textContent, "%fps%", Integer.toString(Minecraft.getDebugFPS()));
-            textContent = StringUtils.replace(textContent, "%date%", new SimpleDateFormat("yyyy-MM-dd").format(System.currentTimeMillis()));
-            textContent = StringUtils.replace(textContent, "%time%", new SimpleDateFormat("HH:mm").format(System.currentTimeMillis()));
-
-            if (Minecraft.getMinecraft().thePlayer != null) {
-                textContent = StringUtils.replace(textContent, "%x%", Double.toString(Minecraft.getMinecraft().thePlayer.posX));
-                textContent = StringUtils.replace(textContent, "%y%", Double.toString(Minecraft.getMinecraft().thePlayer.posY));
-                textContent = StringUtils.replace(textContent, "%z%", Double.toString(Minecraft.getMinecraft().thePlayer.posZ));
-                //        textContent = StringUtil.replace(textContent, "%ping%", Integer.toString(EntityUtils.getPing(Minecraft.getMinecraft().thePlayer)));
-            }
-        }
-
-        return textContent;
+    public Text() {
+        this.displayString = new TextValue("DisplayText", "");
+        final Color c = Color.WHITE;
+        this.redValue = new IntegerValue("Red", c.getRed(), 0, 255);
+        this.greenValue = new IntegerValue("Green", c.getGreen(), 0, 255);
+        this.blueValue = new IntegerValue("Blue", c.getBlue(), 0, 255);
+        this.rainbow = new BoolValue("Rainbow", false);
+        this.shadow = new BoolValue("Shadow", true);
+        this.fontRenderer = Fonts.font40;
     }
 
     @Override
     public void drawElement() {
-        int color = new Color(redValue.get(), greenValue.get(), blueValue.get()).getRGB();
-        int[] location = getLocationFromFacing();
-
-        fontRenderer.drawString(displayText, location[0], location[1], rainbow.get() ? ColorUtils.rainbow(400000000L).getRGB() : color, shadow.get());
-
-        if (editMode && Minecraft.getMinecraft().currentScreen instanceof GuiHudDesigner && editTicks <= 40) {
-            fontRenderer.drawString("_", location[0] + fontRenderer.getWidth(displayText) + 2F, location[1], rainbow.get() ? ColorUtils.rainbow(400000000L).getRGB() : color, shadow.get());
+        this.editTicks += 0.1f * RenderUtils.deltaTime;
+        if (this.editTicks > 80.0f) {
+            this.editTicks = 0.0f;
         }
-
+        final int color = new Color(this.redValue.get(), this.greenValue.get(), this.blueValue.get()).getRGB();
+        final int[] location = this.getLocationFromFacing();
+        this.fontRenderer.drawString(this.editMode ? this.displayString.get() : this.getDisplay(), (float)location[0], (float)location[1], this.rainbow.get() ? ColorUtils.rainbow(400000000L).getRGB() : color, this.shadow.get());
+        if (this.editMode && Minecraft.getMinecraft().currentScreen instanceof GuiHudDesigner && this.editTicks <= 40.0f) {
+            this.fontRenderer.drawString("_", (float)(location[0] + this.fontRenderer.getWidth(this.displayString.get()) + 2), (float)location[1], this.rainbow.get() ? ColorUtils.rainbow(400000000L).getRGB() : color, this.shadow.get());
+        }
         if (Minecraft.getMinecraft().currentScreen instanceof GuiHudDesigner) {
-            RenderUtils.drawBorderedRect(location[0] - 2, location[1] - 2, location[0] + fontRenderer.getWidth(displayText) + 2, location[1] + fontRenderer.getHeight(), 3f, Integer.MIN_VALUE, 0);
-        } else if (editMode) {
-            editMode = false;
-            updateElement();
+            RenderUtils.drawBorderedRect((float)(location[0] - 2), (float)(location[1] - 2), (float)(location[0] + this.fontRenderer.getWidth(this.editMode ? this.displayString.get() : this.getDisplay()) + 2), (float)(location[1] + this.fontRenderer.getHeight()), 3.0f, Integer.MIN_VALUE, 0);
         }
     }
 
@@ -89,74 +67,84 @@ public class Text extends Element {
 
     @Override
     public void updateElement() {
-        editTicks += 5;
-        if (editTicks > 80) editTicks = 0;
 
-        displayText = editMode ? displayString.get() : getDisplay();
     }
 
     @Override
-    public void handleMouseClick(int mouseX, int mouseY, int mouseButton) {
-        if (isMouseOverElement(mouseX, mouseY) && mouseButton == 0) {
-            if (System.currentTimeMillis() - prevClick <= 250L) {
-                editMode = true;
+    public void handleMouseClick(final int mouseX, final int mouseY, final int mouseButton) {
+        if (this.isMouseOverElement(mouseX, mouseY) && mouseButton == 0) {
+            if (System.currentTimeMillis() - this.prevClick <= 250L) {
+                this.editMode = true;
             }
-
-            prevClick = System.currentTimeMillis();
-        } else {
-            editMode = false;
+            this.prevClick = System.currentTimeMillis();
+        }
+        else {
+            this.editMode = false;
         }
     }
 
     @Override
-    public void handleKey(char c, int keyCode) {
-        if (editMode && Minecraft.getMinecraft().currentScreen instanceof GuiHudDesigner) {
-            if (keyCode == Keyboard.KEY_BACK) {
-                if (!displayString.get().isEmpty()) {
-                    displayString.set(displayString.get().substring(0, displayString.get().length() - 1));
+    public void handleKey(final char c, final int keyCode) {
+        if (this.editMode && Minecraft.getMinecraft().currentScreen instanceof GuiHudDesigner) {
+            if (keyCode == 14) {
+                if (!this.displayString.get().isEmpty()) {
+                    this.displayString.set(this.displayString.get().substring(0, this.displayString.get().length() - 1));
                 }
-
-                updateElement();
                 return;
             }
-
             if (ChatAllowedCharacters.isAllowedCharacter(c) || c == '§') {
-                displayString.set(displayString.get() + c);
+                this.displayString.set(this.displayString.get() + c);
             }
-
-            updateElement();
         }
     }
 
     @Override
-    public boolean isMouseOverElement(int mouseX, int mouseY) {
-        int[] location = getLocationFromFacing();
-        return mouseX >= location[0] && mouseY >= location[1] && mouseX <= location[0] + fontRenderer.getWidth(displayString.get().isEmpty() ? "Text Element" : displayText) && mouseY <= location[1] + fontRenderer.getHeight();
+    public boolean isMouseOverElement(final int mouseX, final int mouseY) {
+        final int[] location = this.getLocationFromFacing();
+        return mouseX >= location[0] && mouseY >= location[1] && mouseX <= location[0] + this.fontRenderer.getWidth(this.displayString.get().isEmpty() ? "Text Element" : this.getDisplay()) && mouseY <= location[1] + this.fontRenderer.getHeight();
     }
 
-    public Text setText(String s) {
-        displayString.changeValue(s);
+    private String getDisplay() {
+        String s = (this.displayString.get().isEmpty() && !this.editMode) ? "Text Element" : this.displayString.get();
+        if (s.contains("%")) {
+            s = StringUtils.replace(s, "%username%", Minecraft.getMinecraft().getSession().getUsername());
+            s = StringUtils.replace(s, "%clientName%", LiquidBounce.CLIENT_NAME);
+            s = StringUtils.replace(s, "%clientVersion%", "b" + LiquidBounce.CLIENT_VERSION);
+            s = StringUtils.replace(s, "%clientCreator%", LiquidBounce.CLIENT_AUTHOR);
+            s = StringUtils.replace(s, "%fps%", String.valueOf(Minecraft.getDebugFPS()));
+            if (Minecraft.getMinecraft().thePlayer != null) {
+                s = StringUtils.replace(s, "%x%", String.valueOf((int)Minecraft.getMinecraft().thePlayer.posX));
+                s = StringUtils.replace(s, "%y%", String.valueOf((int)Minecraft.getMinecraft().thePlayer.posY));
+                s = StringUtils.replace(s, "%z%", String.valueOf((int)Minecraft.getMinecraft().thePlayer.posZ));
+                s = StringUtils.replace(s, "%ping%", String.valueOf(EntityUtils.getPing((EntityPlayer)Minecraft.getMinecraft().thePlayer)));
+            }
+        }
+        return s;
+    }
+
+    public Text setText(final String s) {
+        this.displayString.set(s);
         return this;
     }
 
-    public Text setColor(Color c) {
-        redValue.set(c.getRed());
-        greenValue.set(c.getGreen());
-        blueValue.set(c.getBlue());
+    public Text setColor(final Color c) {
+        this.redValue.set(c.getRed());
+        this.greenValue.set(c.getGreen());
+        this.blueValue.set(c.getBlue());
         return this;
     }
 
-    public Text setRainbow(boolean b) {
-        rainbow.set(b);
+    public Text setRainbow(final boolean b) {
+        this.rainbow.set(b);
         return this;
     }
 
-    public Text setShadow(boolean b) {
-        shadow.set(b);
+    public Text setShadow(final boolean b) {
+        this.shadow.set(b);
         return this;
     }
 
-    public Text setFontRenderer(CFontRenderer fontRenderer) {
+    public Text setFontRenderer(final CFontRenderer fontRenderer) {
         this.fontRenderer = fontRenderer;
         return this;
     }

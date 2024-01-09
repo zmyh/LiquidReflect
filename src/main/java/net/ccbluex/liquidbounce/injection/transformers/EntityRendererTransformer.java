@@ -1,5 +1,6 @@
 package net.ccbluex.liquidbounce.injection.transformers;
 
+import net.ccbluex.liquidbounce.utils.reflect.ClassNodeUtils;
 import net.minecraft.client.renderer.EntityRenderer;
 import net.minecraft.client.renderer.GlStateManager;
 import org.objectweb.asm.Type;
@@ -16,7 +17,9 @@ public class EntityRendererTransformer extends Transformer {
 
     @Override
     public void transform(ClassNode classNode) {
-        MethodNode node = method(classNode, "renderWorldPass", "(IFJ)V");
+        // renderWorldPass
+        MethodNode renderWorldPass = method(classNode, "renderWorldPass", "(IFJ)V");
+        MethodNode disableFog = method(ClassNodeUtils.getClassNode(GlStateManager.class), "disableFog", "()V");
         InsnList insnList = new InsnList();
         insnList.add(new TypeInsnNode(NEW, Type.getInternalName(Render3DEvent.class)));
         insnList.add(new InsnNode(DUP));
@@ -24,14 +27,15 @@ public class EntityRendererTransformer extends Transformer {
         insnList.add(new MethodInsnNode(INVOKESPECIAL, Type.getInternalName(Render3DEvent.class), "<init>", "(F)V"));
         insnList.add(new MethodInsnNode(INVOKESTATIC, Type.getInternalName(this.getClass()), "renderWorldPass", "(" + getClassSignature(Render3DEvent.class) + ")V"));
 
-        for (AbstractInsnNode abstractInsnNode : node.instructions) {
+        for (AbstractInsnNode abstractInsnNode : renderWorldPass.instructions) {
             if (abstractInsnNode instanceof MethodInsnNode) {
                 MethodInsnNode tmp = (MethodInsnNode) abstractInsnNode;
-                if (tmp.name.equals("disableFog")) {
-                    node.instructions.insert(abstractInsnNode, insnList);
+                if (tmp.name.equals(disableFog.name)) {
+                    renderWorldPass.instructions.insert(abstractInsnNode, insnList);
                 }
             }
         }
+        // end renderWorldPass
     }
 
     public static void renderWorldPass(Render3DEvent event) {

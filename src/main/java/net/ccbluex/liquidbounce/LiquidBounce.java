@@ -13,6 +13,7 @@ import net.ccbluex.liquidbounce.ui.client.hud.HUD;
 import net.ccbluex.liquidbounce.ui.client.hud.element.elements.notifications.Notification;
 import net.ccbluex.liquidbounce.utils.reflect.Mapping;
 import net.ccbluex.liquidbounce.utils.RotationUtils;
+import org.lwjgl.opengl.Display;
 
 public class LiquidBounce {
 
@@ -65,7 +66,7 @@ public class LiquidBounce {
         clickGui = new ClickGui();
         LOGGER.info("Client Loaded.");
 
-        hud.addNotification(new Notification("Injected Successfully, Press Right Shift open Click Gui."));
+        Display.setTitle(CLIENT_NAME + " b" + CLIENT_VERSION + " | DEVELOPMENT BUILD | " + Display.getTitle());
     }
 
     public void log(String message) {
