@@ -26,4 +26,4 @@ jobs:
       uses: actions/upload-artifact@v2
       with:
         name: client-release
-        path: target/LiquidReflect-Build-jar-with-dependencies.jar.jar
+        path: target/LiquidReflect-Build-jar-with-dependencies.jar
