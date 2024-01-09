@@ -1,0 +1,23 @@
+package net.ccbluex.liquidbounce.utils.reflect;
+
+import org.objectweb.asm.ClassReader;
+import org.objectweb.asm.ClassWriter;
+import org.objectweb.asm.tree.ClassNode;
+
+public class ClassNodeUtils {
+
+    public static ClassNode toClassNode(byte[] bytes) {
+        final ClassReader classReader = new ClassReader(bytes);
+        final ClassNode classNode = new ClassNode();
+        classReader.accept(classNode, 0);
+
+        return classNode;
+    }
+
+    public static byte[] toBytes(ClassNode classNode, boolean compute) {
+        final ClassWriter classWriter = new ClassWriter(compute ? ClassWriter.COMPUTE_FRAMES : ClassWriter.COMPUTE_MAXS);
+        classNode.accept(classWriter);
+
+        return classWriter.toByteArray();
+    }
+}
